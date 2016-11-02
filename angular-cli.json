@@ -18,7 +18,7 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css"
+        "app/styles.css"
       ],
       "scripts": [],
       "environments": {
@@ -41,6 +41,8 @@
     }
   },
   "defaults": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "styleExt": "css",
     "prefixInterfaces": false,
     "inline": {

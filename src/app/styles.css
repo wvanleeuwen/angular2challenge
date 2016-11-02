@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+	background-image: url("../images/background.jpg");
+}
+
+.headtext{
+	font-family: Brush Script MT;
+	font-size: 35pt;
+	text-align: center;
+}
+
+div.logo {
+	width : 100%;
+	text-align: center;
+}
+
+div.choice img.favourite{
+    width : 200px;
+    z-index: 10;  
+	position: absolute;  
+	right: 0;  
+	top: 300px;
+}
+
+div.logo img {
+	width : 600px;
+}
+div.logo img.angular {
+	width : 200px;
+}
+
+app-root div.container{
+	width : 100%;
+	text-align: center;
+}
+
+login {
+	font-family: Lucida Grande;
+	font-size: 12pt;
+	width : 100%;
+    text-align: center;
+}
+
+.login.jumbotron.center-block h1{
+	font-family: Brush Script MT;
+	font-size: 20pt;
+}
+
+.form-control {
+	font-family: Lucida Grande;
+	font-size: 12pt;
+	border-bottom: 1px solid grey;
+    width : 300px;
+}
+
+.form-group {
+	height: 50px;
+}
+.btn {
+    margin-top: 20px;
+	font-family: Lucida Grande;
+	font-size:12pt;
+	border-radius: 50%;
+	color : grey;
+}

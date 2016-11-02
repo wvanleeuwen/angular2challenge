@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+const template = require('./app.component.html');
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: template,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app works!';
+
+export class App {
+  constructor(router: Router) {}
 }
