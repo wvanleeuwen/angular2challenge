@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Http } from '@angular/http';
 
 const template = require('./app.component.html');
 
@@ -10,5 +11,5 @@ const template = require('./app.component.html');
 })
 
 export class App {
-  constructor(router: Router) {}
+  constructor(router: Router, route: ActivatedRoute, http: Http) {}
 }

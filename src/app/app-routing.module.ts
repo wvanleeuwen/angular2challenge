@@ -2,10 +2,10 @@ import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { Home } from './home';
-import { Login } from './login';
+import { Login, User } from './login';
 import { Signup } from './signup';
+import { Rename } from './rename';
 import { App } from './app.component';
-import { AuthGuard } from './common/auth.guard';
 
 @NgModule({
   imports: [
@@ -13,7 +13,12 @@ import { AuthGuard } from './common/auth.guard';
       { path: '',       component: Login },
       { path: 'login',  component: Login },
       { path: 'signup', component: Signup },
-      { path: 'home',   component: Home, canActivate: [AuthGuard] },
+      { path: 'rename/:username', component: Rename },
+      { path: 'rename/*', component: Rename },
+      { path: 'rename', component: Rename },
+      { path: 'home/:username', component: Home },
+      { path: 'home/*', component: Home },
+      { path: 'home', component: Home },
       { path: '**',     component: Login },
     ])
   ],
@@ -21,4 +26,5 @@ import { AuthGuard } from './common/auth.guard';
     RouterModule
   ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

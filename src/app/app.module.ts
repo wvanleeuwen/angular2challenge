@@ -6,13 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 
-import { AUTH_PROVIDERS } from 'angular2-jwt';
-
-import { AuthGuard } from './common/auth.guard';
 import { Router } from '@angular/router';
 import { Home } from './home';
 import { Login } from './login';
 import { Signup } from './signup';
+import { Rename } from './rename';
 import { App } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,7 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
   bootstrap: [App],
   // Define other components in our module
   declarations: [
-    Home, Login, Signup, App
+    Home, Login, Signup, Rename, App
   ],
   // Define the services imported by our app
   imports: [
@@ -30,7 +28,6 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule
   ],
   providers: [
-    AuthGuard, AUTH_PROVIDERS,
     [{provide: APP_BASE_HREF, useValue : '/' }]
   ]
 })

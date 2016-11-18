@@ -1,14 +1,56 @@
 <div>
-  <div class="home jumbotron centered">
-    <h1>Welcome to the angular2 authentication sample!</h1>
-    <h2 *ngIf="jwt">Your JWT is:</h2>
-    <pre *ngIf="jwt" class="jwt"><code></code></pre>
-    <pre *ngIf="jwt" class="jwt"><code></code></pre>
-    <p>Click any of the buttons to call an API and get a response</p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="callAnonymousApi()">Call Anonymous API</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Call Secure API</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
-    <h2 *ngIf="response">The response of calling the <span class="red"></span> API is:</h2>
-    <h3 *ngIf="response"></h3>
+  <div class="home jumbotron centered" *ngIf="activeUser">
+    <h1>Welcome {{activeUser.firstName}} {{activeUser.lastName}} ({{activeUser.userName}}) 						
+    <a [routerLink]="['/rename', {username: activeUser.userName}]" id="userLink">
+			<button type="button" class="btn btn-default">Edit my profile</button>
+		</a>
+	</h1>
+	<div class="return-userlist">
+		<form role="form" (submit)="logout()">
+			<button type="submit" class="btn btn-default">Back to User
+				list</button>
+		</form>
+	</div>
+	<div class="drink-group-left" >
+	<form class="distinctList" >
+		<label for="distinctDrinks">Distinct drinks of all users:</label>
+		<select name="distinctDrinks" class="distinctDrinks" size="10" (change)="setSelectedDistinctDrink($event.target.value)">
+    		<option *ngFor="let distinctBeverage of distinctBeverages" value="{{distinctBeverage}}" >{{distinctBeverage}}</option>		
+		</select>
+		<br/><br/>
+		<label class="beveragename" for="beveragename">New drink</label>
+    	<input type="text" name="beveragename" #beveragename class="newdrink" id="beveragename" placeholder="new drink">
+	</form>
+	</div>
+	<div class="drink-groep-center-buttons">
+		<form role="form">
+			<div class="drinkAgainButton">
+				<input src="../../images/ok.png" type="image" class="notext" (click)="addDistinctDrinkToOwnList(activeUser.userName,true);"/>
+			</div>
+			<div class="wontDrinkAgainButton">
+				<input src="../../images/notok.png" type="image" class="notext" (click)="addDistinctDrinkToOwnList(activeUser.userName,false);"/>
+			</div>
+		</form>
+	</div>
+	<div class="drink-group-center" >
+	<form class="userDrinkList" (submit)="deleteSelectedDrink(activeUser.userName)">
+		<label for="userDrinks">Your drinks listed:</label>
+		<select name="userDrinks" class="userDrinks" size="10" (change)="setSelectedOwnDrink($event.target.value)">
+    		<option *ngFor="let beverage of beverages" value="{{beverage.name}}" class="drinkagain-{{beverage.drinkAgain}}">{{beverage.name}}</option>		
+		</select>
+		<button type="submit" *ngIf="selectedOwnDrink" class="btn btn-default">Delete selected drink</button>
+	</form>
+	</div>
+	<div class="drink-groep-center-buttons">
+	</div>
+	<div class="drink-group-right">
+		<form role="form" (submit)="updateTagList(activeUser.userName, textbox.value)">
+			<label for="tagList">Tag List selected drink:</label>
+			<textarea #textbox value="{{taglistString}}" rows="5" cols="25"></textarea>
+			<br/>
+  			<button type="submit" class="btn btn-default">Submit taglist</button>
+		</form>
+	</div>
+	
   </div>
-</div>
+ </div>

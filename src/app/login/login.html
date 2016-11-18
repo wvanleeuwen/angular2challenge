@@ -1,11 +1,19 @@
 <div class="login jumbotron center-block">
-   <h1>Login</h1>
-   <form role="form" (submit)="login($event, username.value)">
-   <div class="form-group">
-     <label for="username">Username</label>
-     <input type="text" #username class="form-control" id="username" placeholder="Username">
-   </div>
-   <button type="submit" class="btn btn-default">Submit</button>
-     <a [routerLink]="['/signup']">Click here to Signup</a>
- </form>
- </div>
+	<h1>Welcome</h1>
+
+	<div class="form-group">
+		<a [routerLink]="['/signup']">Click here to Signup</a>
+	</div>
+
+	<form role="form" (submit)="userList()">
+		<button type="submit" class="btn btn-default">Refresh User
+			list</button>
+		<a [routerLink]="['/login']"></a>
+	</form>
+	<br />
+	<div class="choice"><img src="images/yourfavourite.png" class="favourite"/></div>
+	<div class="user-group" *ngFor="let user of users">	
+		<a [routerLink]="['/home', {username: user.userName}]" id="userLink" title="Click on this user">{{user.userName}}</a>
+		: {{user.firstName}} {{user.lastName}}
+	</div>
+	<br />
