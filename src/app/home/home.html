@@ -35,7 +35,7 @@
 	<div class="drink-group-center" >
 	<form class="userDrinkList" (submit)="deleteSelectedDrink(activeUser.userName)">
 		<label for="userDrinks" >Your drinks listed:</label>
-		<select name="userDrinks" class="userDrinks" size="10" (change)="setSelectedOwnDrink($event.target.value)">
+		<select name="userDrinks" class="userDrinks" size="10" (focus)="setSelectedOwnDrink($event.target.value)" (change)="setSelectedOwnDrink($event.target.value)">
     		<option *ngFor="let beverage of beverages" value="{{beverage.name}}" class="drinkagain-{{beverage.drinkAgain}}">{{beverage.name}}</option>		
 		</select>
 		<button type="submit" *ngIf="selectedOwnDrink" class="btn btn-default">Delete selected drink</button>

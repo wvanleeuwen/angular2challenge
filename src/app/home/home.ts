@@ -105,6 +105,7 @@ export class Home {
           
         if(response.ok){ 
           this.getDrinksUser(); 
+          this.getDistinctDrinks();
           this.newBeverageName = null;
         }
       },
@@ -186,6 +187,7 @@ export class Home {
   }
   
   setTagListString(){
+    this.taglistString = "";
     var tagListString = "";
     for(var i = 0; i < this.tagList.length; i++){
       console.log(this.tagList[i]);
