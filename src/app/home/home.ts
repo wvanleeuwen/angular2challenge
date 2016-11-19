@@ -22,15 +22,20 @@ export class Home {
   private selectedOwnBeverage : Array<Beverage>;
   private tagList : Array<String>;
   private taglistString : String;
+  private newBeverageName : String;
 
   constructor(public router: Router, public route: ActivatedRoute, public http: Http) {
     route.params.subscribe(params => {
     this.userName = params['username'];     
     });
+    this.selectedDistinctDrink = null;
+    this.selectedDistinctDrink = null;
+    this.selectedOwnDrink = null;
+    this.selectedOwnBeverage = null;
+    this.newBeverageName = null;
   }
 
   ngOnInit() {
-   
     this.getDrinksUser();
     this.getDistinctDrinks();
   }
@@ -80,11 +85,18 @@ export class Home {
       );
   }
   
-  addDistinctDrinkToOwnList(username, drinkAgain){
+  addDistinctDrinkToOwnList(username, drinkAgain, newBeverageName){
     console.log("addDistinctDrinkToOwnList");
     this.userName = username;
-    if(this.selectedDistinctDrink !== null){
-      let selectedBeverage = new Beverage(drinkAgain, this.selectedDistinctDrink);
+    if(this.selectedDistinctDrink != null || newBeverageName){
+      let selectedBeverage;
+      if(this.selectedDistinctDrink != null){
+        selectedBeverage = new Beverage(drinkAgain, this.selectedDistinctDrink);
+      }
+      else {
+        selectedBeverage = new Beverage(drinkAgain, newBeverageName);
+      }
+      
       var url = "https://responsive-drinking-server.herokuapp.com/rest/users/"+username+"/beverages";
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -93,6 +105,7 @@ export class Home {
           
         if(response.ok){ 
           this.getDrinksUser(); 
+          this.newBeverageName = null;
         }
       },
       error => {
@@ -187,6 +200,11 @@ export class Home {
   
   setSelectedDistinctDrink(beverageName){
     this.selectedDistinctDrink = beverageName;
+    this.newBeverageName = null;
+  }
+  
+  newDrinkInsert(){
+    this.selectedDistinctDrink = null;
   }
   
   setSelectedOwnDrink(beverageName){ 

@@ -46,8 +46,12 @@ export class Login {
       }
       );
   }
+  
+  setSelectedUser(username){
+    this.selectedUser = username;
+  }
 
-  login(event, username) {
+  loginAction(username) {
     this.router.navigate(['home', username]);
   }
 

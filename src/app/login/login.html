@@ -12,8 +12,14 @@
 	</form>
 	<br />
 	<div class="choice"><img src="images/yourfavourite.png" class="favourite"/></div>
-	<div class="user-group" *ngFor="let user of users">	
-		<a [routerLink]="['/home', {username: user.userName}]" id="userLink" title="Click on this user">{{user.userName}}</a>
-		: {{user.firstName}} {{user.lastName}}
+	<div class="user-group">
+		<form class="userList" (submit)="loginAction(selectedUser)">
+			<label for="userDrinks">List of active users:</label>
+			<select name="userList" class="userList" size="20" (change)="setSelectedUser($event.target.value)">
+	    		<option *ngFor="let user of users" value="{{user.userName}}" class="userlistoption">{{user.userName}} : {{user.firstName}} {{user.lastName}}</option>		
+			</select>
+			<button type="submit" *ngIf="selectedUser" class="btn btn-default">Login as selected user</button>
+		</form>
 	</div>
+
 	<br />

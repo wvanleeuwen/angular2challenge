@@ -60,10 +60,14 @@ div.drink-group-right {
 select.userDrinks {
 	float: left;
 	width: 200px;
+	overflow-x: hidden;
+    overflow-y: scroll;
 }
 select.distinctDrinks {
 	float: left;
 	width: 200px;
+	overflow-x: hidden;
+    overflow-y: scroll;
 }
 select option {
 	font-family: Lucida Grande;
@@ -89,7 +93,7 @@ label {
 	font-weight: bold;
 }
 
-label.beveragename {
+label.newbeveragename {
 	display: inline-block;
 	padding-top: 10px;
 }

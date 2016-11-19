@@ -1,0 +1,15 @@
+
+div.user-group {
+	float: left;
+	text-align: left;
+	width: 260px;
+	padding-left: 20px;
+	height: 500px;
+}
+
+label {
+    font-family: Lucida Grande;
+	font-size: 12pt;
+	font-style: italic;
+	font-weight: bold;
+}

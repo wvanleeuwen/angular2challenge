@@ -12,29 +12,29 @@
 		</form>
 	</div>
 	<div class="drink-group-left" >
-	<form class="distinctList" >
+	<form class="distinctList" id="distinctList">
 		<label for="distinctDrinks">Distinct drinks of all users:</label>
-		<select name="distinctDrinks" class="distinctDrinks" size="10" (change)="setSelectedDistinctDrink($event.target.value)">
+		<select name="distinctDrinks" class="distinctDrinks" size="10" (focus)="setSelectedDistinctDrink($event.target.value)" (change)="setSelectedDistinctDrink($event.target.value)">
     		<option *ngFor="let distinctBeverage of distinctBeverages" value="{{distinctBeverage}}" >{{distinctBeverage}}</option>		
 		</select>
 		<br/><br/>
-		<label class="beveragename" for="beveragename">New drink</label>
-    	<input type="text" name="beveragename" #beveragename class="newdrink" id="beveragename" placeholder="new drink">
+		<label class="newbeveragename" for="newbeveragename">New beverage</label>
+    	<input type="text" name="newbeveragename" #newbeveragename value="{{newBeverageName}}" class="newdrink" (change)="newDrinkInsert();" placeholder="beverage name">
 	</form>
 	</div>
 	<div class="drink-groep-center-buttons">
 		<form role="form">
 			<div class="drinkAgainButton">
-				<input src="../../images/ok.png" type="image" class="notext" (click)="addDistinctDrinkToOwnList(activeUser.userName,true);"/>
+				<input src="../../images/ok.png" type="image" class="notext" (click)="addDistinctDrinkToOwnList(activeUser.userName, true, newbeveragename.value);"/>
 			</div>
 			<div class="wontDrinkAgainButton">
-				<input src="../../images/notok.png" type="image" class="notext" (click)="addDistinctDrinkToOwnList(activeUser.userName,false);"/>
+				<input src="../../images/notok.png" type="image" class="notext" (click)="addDistinctDrinkToOwnList(activeUser.userName, false, newbeveragename.value);"/>
 			</div>
 		</form>
 	</div>
 	<div class="drink-group-center" >
 	<form class="userDrinkList" (submit)="deleteSelectedDrink(activeUser.userName)">
-		<label for="userDrinks">Your drinks listed:</label>
+		<label for="userDrinks" >Your drinks listed:</label>
 		<select name="userDrinks" class="userDrinks" size="10" (change)="setSelectedOwnDrink($event.target.value)">
     		<option *ngFor="let beverage of beverages" value="{{beverage.name}}" class="drinkagain-{{beverage.drinkAgain}}">{{beverage.name}}</option>		
 		</select>

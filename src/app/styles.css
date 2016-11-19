@@ -20,14 +20,13 @@ div.choice img.favourite{
     z-index: 10;  
 	position: absolute;  
 	left: 400px;  
-	top: 520px;
+	top: 380px;
 }
 
 div.user-group {
 	text-align: left;
     margin-left: 600px; 
     padding-left: 30px;
-    border-left: 1px solid gray;
     height: 100%; 
 }
 
@@ -40,7 +39,7 @@ div.logo img.angular {
 	width : 150px;
 	position: absolute;
 	left: 650px;
-    top: 650px; 
+    top: 710px; 
 }
 
 app-root div.container{
