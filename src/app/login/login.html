@@ -21,5 +21,13 @@
 			<button type="submit" *ngIf="selectedUser" class="btn btn-default">Login as selected user</button>
 		</form>
 	</div>
+	<div class="favourites-usergroup">
+		<label>Top 5 beverage of all users:</label>
+		<ol>
+			<div *ngFor="let beverageSorted of beveragesSorted let i = index" [attr.data-index]="i">
+		    	<li *ngIf="i<5">{{beverageSorted.beverageName}}</li>
+		    </div>
+		</ol>
+	</div>
 
 	<br />
