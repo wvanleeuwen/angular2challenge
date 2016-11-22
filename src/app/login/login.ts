@@ -1,5 +1,6 @@
 import { Component, Injectable, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 
@@ -17,54 +18,51 @@ export class Login {
   selectedUser: User;
   beverages: Array<Beverage>;
   beveragesSorted: Array<BeverageCounter>;
+  userListSubscription : any;
 
   constructor(public router: Router, public route: ActivatedRoute, public http: Http) { }
 
   ngOnInit() {
-    this.userList();
+    this.userListSubscription = this.userList().subscribe(
+      users => this.users = users);
+  }
+  
+  ngOnDestroy() {
+    this.userListSubscription.unsubscribe();
   }
 
   userList() {
+  	console.log("userList")
     let body = JSON.stringify({});
-    this.http.get('https://responsive-drinking-server.herokuapp.com/rest/users/')
-      .subscribe(
-      response => {
-        var result = response.json();
-        var length = Object.keys(result).length;
-        this.users = new Array();
-        this.beverages = new Array();
-        for (var i = 0; i < length; i++) {
-          var object = result[i];
-          // convert data fields to user object
-          let user = new User(object.firstName, object.lastName, object.userName);
-          this.users[i] = user;
-
-          // creating list beverages (drinkAgain=true) counting
-          if (object.beverages) {
-            var beverageslength = Object.keys(object.beverages).length;
-            for (var counter = 0; counter < beverageslength; counter++) {
-              var beverage = object.beverages[counter];
-              // convert data fields to beverage object
-              var drink = new Beverage(beverage.drinkAgain, beverage.name);
-              if (drink.drinkAgain) {
-                this.beverages.push(drink);
-              }
-            }
-          }
-        }
-        this.createFiveMostFavouriteDrinksList();
-
-        this.router.navigate(['login']);
-      },
-      error => {
-        alert(error.text());
-        console.log(error.text());
-      }
-      );
+    var url = "https://responsive-drinking-server.herokuapp.com/rest/users/";
+        return Observable.interval(5000)
+    	.switchMap(() => this.http.get(url))
+     	.map( (responseData) => {
+      	        let response = responseData.json();
+      	        let users = response;
+      	        let result : Array<User> = [];
+      	        this.beverages = new Array<Beverage>();
+      	        users.forEach((user) => {
+          			result.push(
+             		   new User(user.firstName, user.lastName, user.userName));
+             		let beverages = user.beverages;
+             		//console.log(beverages);
+      	        	beverages.forEach((beverage) => {
+					let drink = new Beverage(beverage.drinkAgain, beverage.name);
+					              if (drink.drinkAgain) {
+					                this.beverages.push(drink);
+					              }
+	    				})
+    			})
+    			this.users = result;
+      			//console.log(result);
+      			this.createFiveMostFavouriteDrinksList();
+      			return result;
+    	});   
   }
 
   createFiveMostFavouriteDrinksList() {
-    
+    console.log("create FavouriteDrinksList");
     var counts = new Array();    
     for (let beverage of this.beverages) {
       if (counts[beverage.name.toString()]) {

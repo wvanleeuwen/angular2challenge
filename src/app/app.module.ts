@@ -6,8 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 
+import 'rxjs/Rx';
+
 import { Router } from '@angular/router';
-import { Home } from './home';
+import { Home} from './home';
 import { Login } from './login';
 import { Signup } from './signup';
 import { Rename } from './rename';

@@ -1,10 +1,9 @@
 <div>
-  <div class="home jumbotron centered" *ngIf="activeUser">
-    <h1>Welcome {{activeUser.firstName}} {{activeUser.lastName}} ({{activeUser.userName}}) 						
+  <div class="home jumbotron centered" *ngIf="activeUser"> 
+    <h1>Welcome {{activeUser.firstName}} {{activeUser.lastName}} ({{activeUser.userName}})		</h1>			
     <a [routerLink]="['/rename', {username: activeUser.userName}]" id="userLink">
 			<button type="button" class="btn btn-default">Edit my profile</button>
 		</a>
-	</h1>
 	<div class="return-userlist">
 		<form role="form" (submit)="logout()">
 			<button type="submit" class="btn btn-default">Back to User
@@ -19,7 +18,7 @@
 		</select>
 		<br/><br/>
 		<label class="newbeveragename" for="newbeveragename">New beverage</label>
-    	<input type="text" name="newbeveragename" #newbeveragename value="{{newBeverageName}}" class="newdrink" (change)="newDrinkInsert();" placeholder="beverage name">
+    	<input type="text" name="newbeveragename" #newbeveragename value="{{newBeverageName}}" class="newdrink" (change)="newDrinkInsert();" placeholder="beverage name"/>
 	</form>
 	</div>
 	<div class="drink-groep-center-buttons">

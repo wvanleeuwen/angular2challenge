@@ -1,5 +1,6 @@
 import { Component, Input, Inject } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User, Beverage } from "../login";
 
@@ -23,10 +24,13 @@ export class Home {
   private tagList : Array<String>;
   private taglistString : String;
   private newBeverageName : String;
+  private userDrinkSubscription : any;
+  private distinctDrinkSubscription : any;
 
   constructor(public router: Router, public route: ActivatedRoute, public http: Http) {
+    
     route.params.subscribe(params => {
-    this.userName = params['username'];     
+      this.userName = params['username'];     
     });
     this.selectedDistinctDrink = null;
     this.selectedDistinctDrink = null;
@@ -36,114 +40,116 @@ export class Home {
   }
 
   ngOnInit() {
-    this.getDrinksUser();
-    this.getDistinctDrinks();
+    this.userDrinkSubscription = this.getDrinksUser().subscribe(
+      beverages => this.beverages = beverages);
+    this.distinctDrinkSubscription = this.getDistinctDrinks().subscribe(
+      distinctBeverages => this.distinctBeverages = distinctBeverages);
+  }
+  
+  ngOnDestroy() {
+    this.userDrinkSubscription.unsubscribe();
+    this.distinctDrinkSubscription.unsubscribe();
   }
 
-  getDrinksUser(){
-    let url = "https://responsive-drinking-server.herokuapp.com/rest/users/"+this.userName;
-    this.http.get(url)
-      .subscribe(
-      response => {       
-        var result = response.json();
-        // convert data fields to user object
-        let user = new User(result.firstName, result.lastName, result.userName);
-        this.activeUser = user;   
-        this.beverages = new Array();
-        var length = Object.keys(result.beverages).length;
-        for (var i = 0; i < length; i++) {
-          var beverage = result.beverages[i];
-          // convert data fields to beverage object
-          var drink = new Beverage(beverage.drinkAgain, beverage.name);
-          drink.tagList = beverage.tagList;
-          this.beverages[i] = drink;
-        }
-      },
-      error => {
-        console.log(error);
-        this.router.navigate(['login']);
-      }
-      );
+  getDrinksUser(): Observable<Array<Beverage>> {
+
+    console.log("getDrinksUser");
+    let url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + this.userName;
+    return Observable.interval(5000)
+      .switchMap(() => this.http.get(url))
+      .map( (responseData) => {
+                let response = responseData.json();
+                let user = new User(response.firstName, response.lastName, response.userName);
+                this.activeUser = user;
+                let beverages = response.beverages;
+                let result : Array<Beverage> = [];
+                beverages.forEach((beverage) => {
+                  var drink = new Beverage(beverage.drinkAgain, beverage.name);
+                  drink.tagList = beverage.tagList;
+                  result.push(drink);
+          })
+          this.beverages = result;
+            console.log(result);
+            return result;
+      });   
   }
   
-  getDistinctDrinks(){
+  getDistinctDrinks() : Observable<Array<String>> {
     console.log("getDistinctDrinks");
     let url = "https://responsive-drinking-server.herokuapp.com/rest/distinctbeverages";
-    this.http.get(url)
-      .subscribe(
-      response => {       
-        var result = response.json();
-        this.distinctBeverages = new Array();
-        var length = Object.keys(result).length;
-        for (var i = 0; i < length; i++) {
-          this.distinctBeverages[i] = result[i];
-        }
-      },
-      error => {
-        alert(error.text());
-      }
-      );
+    return Observable.interval(5000)
+      .switchMap(() => this.http.get(url))
+      .map( (responseData) => {
+                let response = responseData.json();
+                let beverages = response;
+                let result : Array<String> = [];
+                beverages.forEach((beverage) => {
+                result.push(beverage);
+          })
+          this.distinctBeverages = result;
+            console.log(result);
+            return result;
+      });   
   }
   
-  addDistinctDrinkToOwnList(username, drinkAgain, newBeverageName){
-    console.log("addDistinctDrinkToOwnList");
-    this.userName = username;
-    if(this.selectedDistinctDrink != null || newBeverageName){
+  addDistinctDrinkToOwnList(username, drinkAgain, newBeverageName) {
+  
+    if (this.selectedDistinctDrink != null || newBeverageName) {
       let selectedBeverage;
-      if(this.selectedDistinctDrink != null){
+      if (this.selectedDistinctDrink != null) {
         selectedBeverage = new Beverage(drinkAgain, this.selectedDistinctDrink);
       }
       else {
         selectedBeverage = new Beverage(drinkAgain, newBeverageName);
       }
-      
-      var url = "https://responsive-drinking-server.herokuapp.com/rest/users/"+username+"/beverages";
+
+      var url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + username + "/beverages";
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
       this.http.post(url, JSON.stringify(selectedBeverage), { headers })
-        .subscribe(response => {     
-          
-        if(response.ok){ 
-          this.getDrinksUser(); 
-          this.getDistinctDrinks();
-          this.newBeverageName = null;
+        .subscribe(response => {
+
+          if (response.ok) {
+            this.getDistinctDrinks();
+            this.resetTagList();
+          }
+        },
+        error => {
+          alert(error.text());
         }
-      },
-      error => {
-        alert(error.text());
-      }
-      );
+        );
     }
     else {
       alert("Please select a distinct drink first!");
     }
   }
     
-  deleteSelectedDrink(username){
-    console.log("deleteSelectedDrink");
-      this.userName = username;
-      var url = "https://responsive-drinking-server.herokuapp.com/rest/users/"+username+"/beverages/"+this.selectedOwnDrink;
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      this.http.delete(url, { headers })
-        .subscribe(response => {     
-          
-        if(response.ok){ 
-          this.selectedOwnDrink = null;        
-          this.getDrinksUser(); 
+  deleteSelectedDrink(username) {
+    var url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + username + "/beverages/" + this.selectedOwnDrink;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    this.http.delete(url, { headers })
+      .subscribe(response => {
+
+        if (response.ok) {
+          this.getDrinksUser();
+          this.resetTagList();
         }
       },
       error => {
         alert(error.text());
       }
       );
-    }
+  }
   
   getTagListDrink(beverage){
+  
+    console.log("getTagListDrink: "+beverage);
     for(var i = 0; i < this.beverages.length; i++){
       console.log(this.beverages[i].name)
       if(beverage === this.beverages[i].name){
         this.tagList = this.beverages[i].tagList;
+        console.log(this.tagList);
         this.setTagListString();
         return;
       }
@@ -187,6 +193,7 @@ export class Home {
   }
   
   setTagListString(){
+    console.log("setTagListString");
     this.taglistString = "";
     var tagListString = "";
     for(var i = 0; i < this.tagList.length; i++){
@@ -213,11 +220,13 @@ export class Home {
     this.selectedOwnDrink = beverageName;
     this.getTagListDrink(this.selectedOwnDrink);
   }
-
+  
   resetTagList(){
+    this.taglistString = "";
   }
 
   logout() {
     this.router.navigate(['login']);
   }
+
 }

@@ -11,5 +11,4 @@ const template = require('./app.component.html');
 })
 
 export class App {
-  constructor(router: Router, route: ActivatedRoute, http: Http) {}
 }
