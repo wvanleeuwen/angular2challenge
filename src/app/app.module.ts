@@ -10,6 +10,7 @@ import 'rxjs/Rx';
 
 import { Router } from '@angular/router';
 import { Home} from './home';
+import { ActiveUser } from './common/activeuser.service';
 import { Login } from './login';
 import { Signup } from './signup';
 import { Rename } from './rename';
@@ -30,7 +31,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule
   ],
   providers: [
-    [{provide: APP_BASE_HREF, useValue : '/' }]
+    [{provide: APP_BASE_HREF, useValue : '/' }],
+    [ActiveUser]
   ]
 })
 export class AppModule {}

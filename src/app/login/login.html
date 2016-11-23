@@ -24,7 +24,7 @@
 	<div class="favourites-usergroup">
 		<label>Top 5 beverage of all users:</label>
 		<ol>
-			<div *ngFor="let beverageSorted of beveragesSorted let i = index" [attr.data-index]="i">
+			<div *ngFor="let beverageSorted of loginService.beveragesSorted let i = index" [attr.data-index]="i">
 		    	<li *ngIf="i<5">{{beverageSorted.beverageName}}</li>
 		    </div>
 		</ol>

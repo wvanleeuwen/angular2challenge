@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 import { User, Beverage } from "../login";
+import { ActiveUser } from "../common/activeuser.service";
 
 const styles   = require('./rename.css');
 const template = require('./rename.html');
@@ -18,10 +19,8 @@ export class Rename {
   private userName: String; 
   private currentUser : User;
   
-  constructor(public router: Router, public route: ActivatedRoute, public http: Http) {
-    route.params.subscribe(params => {
-    this.userName = params['username'];     
-    });  
+  constructor(public router: Router, public route: ActivatedRoute, public http: Http, public activeUser : ActiveUser) {
+    this.userName = activeUser.getActiveUserName();   
   }
   
   ngOnInit() {

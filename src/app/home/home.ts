@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User, Beverage } from "../login";
+import { ActiveUser } from "../common/activeuser.service";
 
 const styles = require('./home.css');
 const template = require('./home.html');
@@ -27,11 +28,12 @@ export class Home {
   private userDrinkSubscription : any;
   private distinctDrinkSubscription : any;
 
-  constructor(public router: Router, public route: ActivatedRoute, public http: Http) {
+  constructor(public router: Router, public route: ActivatedRoute, public http: Http, public actUser : ActiveUser) {
     
-    route.params.subscribe(params => {
-      this.userName = params['username'];     
-    });
+    this.userName = this.actUser.userName; 
+    if(!this.userName){
+        this.logout();
+    }
     this.selectedDistinctDrink = null;
     this.selectedDistinctDrink = null;
     this.selectedOwnDrink = null;

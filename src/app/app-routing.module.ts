@@ -13,11 +13,7 @@ import { App } from './app.component';
       { path: '',       component: Login },
       { path: 'login',  component: Login },
       { path: 'signup', component: Signup },
-      { path: 'rename/:username', component: Rename },
-      { path: 'rename/*', component: Rename },
       { path: 'rename', component: Rename },
-      { path: 'home/:username', component: Home },
-      { path: 'home/*', component: Home },
       { path: 'home', component: Home },
       { path: '**',     component: Login },
     ])
