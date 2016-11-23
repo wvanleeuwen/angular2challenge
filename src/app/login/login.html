@@ -14,7 +14,7 @@
 	<div class="choice"><img src="images/yourfavourite.png" class="favourite"/></div>
 	<div class="user-group">
 		<form class="userList" (submit)="loginAction(selectedUser)">
-			<label for="userDrinks">List of active users:</label>
+			<label for="userDrinks" *ngIf="users">List of active users:</label>
 			<select name="userList" class="userList" size="20" (change)="setSelectedUser($event.target.value)">
 	    		<option *ngFor="let user of users" value="{{user.userName}}" class="userlistoption">{{user.userName}} : {{user.firstName}} {{user.lastName}}</option>		
 			</select>
