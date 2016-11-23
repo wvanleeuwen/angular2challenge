@@ -177,7 +177,8 @@ export class Home {
       this.http.put(url, JSON.stringify(updatedBeverage), { headers })
         .subscribe(response => {     
           
-        if(response.ok){      
+        if(response.ok){    
+          this.taglistString = "";
           this.getDrinksUser(); 
         }
       },
