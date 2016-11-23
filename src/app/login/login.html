@@ -15,14 +15,14 @@
 	<div class="user-group">
 		<form class="userList" (submit)="loginAction(selectedUser)">
 			<label for="userDrinks" *ngIf="users">List of active users:</label>
-			<select name="userList" class="userList" size="20" (change)="setSelectedUser($event.target.value)">
+			<select *ngIf="users" name="userList" class="userList" size="20" (change)="setSelectedUser($event.target.value)">
 	    		<option *ngFor="let user of users" value="{{user.userName}}" class="userlistoption">{{user.userName}} : {{user.firstName}} {{user.lastName}}</option>		
 			</select>
 			<button type="submit" *ngIf="selectedUser" class="btn btn-default">Login as selected user</button>
 		</form>
 	</div>
 	<div class="favourites-usergroup">
-		<label>Top 5 beverage of all users:</label>
+		<label *ngIf="loginService.beveragesSorted">Top 5 beverage of all users:</label>
 		<ol>
 			<div *ngFor="let beverageSorted of loginService.beveragesSorted let i = index" [attr.data-index]="i">
 		    	<li *ngIf="i<5">{{beverageSorted.beverageName}}</li>
