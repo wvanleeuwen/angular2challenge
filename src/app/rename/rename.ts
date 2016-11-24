@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Http, Headers } from '@angular/http';
-import { contentHeaders } from '../common/headers';
+import { Http } from '@angular/http';
 // objects
 import { User } from "../common/user";
 // services

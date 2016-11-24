@@ -1,9 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { UserDrink } from './userdrink.service';
-import { Observable } from 'rxjs/Observable';
 import { ActiveUser } from '../common/activeuser.service';
 import { Beverage } from '../common/beverage';
-import 'rxjs/add/observable/of';
 
 @Injectable()
 export class MockUserDrinkService extends UserDrink {

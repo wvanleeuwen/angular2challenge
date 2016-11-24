@@ -1,7 +1,5 @@
-import { Component, Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component } from '@angular/core';
 import { ActiveUser } from "../common/activeuser.service";
-import { Observable } from 'rxjs/Observable';
 import { Login } from './'
 import { LoginService } from './login.service'
 import { MockLoginService } from './mocklogin.service'

@@ -1,8 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 //objects
-import { User } from "../common/user";
 import { Beverage } from "../common/beverage";
 import { ActiveUser } from "../common/activeuser.service";
 

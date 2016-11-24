@@ -1,9 +1,7 @@
-import { Component, Injectable, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 // http / headers
 import { Http } from '@angular/http';
-import { contentHeaders } from '../common/headers';
 // services
 import { ActiveUser } from '../common/activeuser.service';
 import { LoginService } from './login.service';

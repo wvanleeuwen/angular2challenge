@@ -1,9 +1,7 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
 // objects
-import { User } from "../common/user";
 import { Beverage } from "../common/beverage";
 // services
 import { ActiveUser } from "../common/activeuser.service";

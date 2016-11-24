@@ -1,4 +1,4 @@
-import { Component, Injectable, Inject } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Beverage } from './beverage';
 
 @Injectable()

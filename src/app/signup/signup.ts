@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Headers } from '@angular/http';
-import { contentHeaders } from '../common/headers';
-//objects
-import { User } from "../common/user";
-import { Beverage } from "../common/beverage";
+import { Http } from '@angular/http';
 // services
 import { SignupService } from './signup.service';
 

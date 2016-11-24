@@ -1,7 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
-import { Subject } from 'rxjs/Subject';
 // objects
 import { User } from '../common/user';
 import { Beverage } from '../common/beverage';
@@ -20,7 +19,6 @@ export class LoginService {
     }
     
     userList() {
-        this.callUserList = new Subject();
         console.log("userList")
         let body = JSON.stringify({});
         var url = "https://responsive-drinking-server.herokuapp.com/rest/users/";
