@@ -1,10 +1,16 @@
 import { Component, Injectable, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+// http / headers
 import { Http } from '@angular/http';
 import { contentHeaders } from '../common/headers';
+// services
 import { ActiveUser } from '../common/activeuser.service';
 import { LoginService } from './login.service';
+// commons
+import { User } from '../common/user';
+import { Beverage } from '../common/beverage';
+import { BeverageCounter } from '../common/beveragecounter';
 
 const styles = require('./login.css');
 const template = require('./login.html');
@@ -27,6 +33,9 @@ export class Login {
           public loginService : LoginService) { }
 
   ngOnInit() {
+      // call it
+      this.loginService.userList();
+    // subscribe
     this.userListSubscription = this.loginService.userList().subscribe(
       users => this.users = users,
       );
@@ -41,37 +50,12 @@ export class Login {
   }
 
   loginAction(username) {
-    this.activeUser.setActiveUser(username);
+    this.activeUser.setUserName(username);
     this.router.navigate(['home']);
   }
 
   signup(event) {
     event.preventDefault();
     this.router.navigate(['signup']);
-  }
-}
-
-@Injectable()
-export class User {
-
-  beverages: Array<Beverage>;
-
-  constructor(public firstName: String, public lastName: String, public userName: String ) {
-  }
-}
-
-@Injectable()
-export class Beverage {
-
-  tagList: Array<String>;
-
-  constructor(public drinkAgain: Boolean, public name: String) {
-  }
-}
-
-@Injectable()
-export class BeverageCounter {
-
-  constructor(public beverageName: String, public counter: number) {
   }
 }

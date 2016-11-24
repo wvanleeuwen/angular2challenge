@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { contentHeaders } from '../common/headers';
-import { User, Beverage } from "../login";
+// objects
+import { User } from "../common/user";
+import { Beverage } from "../common/beverage";
+// services
 import { ActiveUser } from "../common/activeuser.service";
 
 const styles   = require('./rename.css');
@@ -20,7 +23,7 @@ export class Rename {
   private currentUser : User;
   
   constructor(public router: Router, public route: ActivatedRoute, public http: Http, public activeUser : ActiveUser) {
-    this.userName = activeUser.getActiveUserName();   
+    this.userName = activeUser.userName;   
   }
   
   ngOnInit() {

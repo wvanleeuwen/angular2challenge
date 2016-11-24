@@ -2,7 +2,7 @@ import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { Home } from './home';
-import { Login, User } from './login';
+import { Login } from './login';
 import { Signup } from './signup';
 import { Rename } from './rename';
 import { App } from './app.component';

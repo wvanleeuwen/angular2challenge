@@ -1,7 +1,11 @@
 import { Component, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
-import { User, Beverage, BeverageCounter } from './login';
+import { Subject } from 'rxjs/Subject';
+// objects
+import { User } from '../common/user';
+import { Beverage } from '../common/beverage';
+import { BeverageCounter } from '../common/beveragecounter';
 
 @Injectable()
 export class LoginService {
@@ -9,16 +13,18 @@ export class LoginService {
     users: Array<User>;
     beverages: Array<Beverage>;
     beveragesSorted: Array<BeverageCounter>;
+    callUserList: any;
     
     constructor( public http: Http){
         console.log("ActiveUser created");
     }
     
     userList() {
+        this.callUserList = new Subject();
         console.log("userList")
         let body = JSON.stringify({});
         var url = "https://responsive-drinking-server.herokuapp.com/rest/users/";
-            return Observable.interval(5000)
+            return Observable.timer(0, 10000)
             .switchMap(() => this.http.get(url))
             .map( (responseData) => {
                     let response = responseData.json();
@@ -41,7 +47,7 @@ export class LoginService {
                     //console.log(result);
                     this.createFiveMostFavouriteDrinksList();
                     return result;
-            });   
+            }).distinctUntilChanged(); 
       }
 
       createFiveMostFavouriteDrinksList() {

@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { contentHeaders } from '../common/headers';
-import { User, Beverage } from "../login";
+//objects
+import { User } from "../common/user";
+import { Beverage } from "../common/beverage";
+// services
+import { SignupService } from './signup.service';
 
 const styles   = require('./signup.css');
 const template = require('./signup.html');
@@ -19,33 +23,14 @@ export class Signup {
   firstname: String;
   lastname: String;
   
-  constructor(public router: Router, public http: Http) {
+  constructor(public router: Router, public http: Http, public signupService : SignupService) {
     this.username="";
     this.firstname="";
     this.lastname="";
   }
 
-  signup(event, username, firstname, lastname) {
-    event.preventDefault();
-    var beverages = new Array();
-    var url = "https://responsive-drinking-server.herokuapp.com/rest/users/"+username
-    var user = new User(firstname, lastname, username);
-    let body = JSON.stringify(user);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    console.log(body);
-    this.http.put(url, body, {headers: headers})
-      .subscribe(
-        response => {
-          this.responseText = "User '"+ username +"' successfully created";
-          this.username="";
-          this.firstname="";
-          this.lastname="";
-        },
-        error => {
-          alert(error.text());
-          console.log(error.text());
-        }
-      );
+  signup(username, firstname, lastname) {
+      this.responseText = this.signupService.signup(username, firstname, lastname);
   }
 
   login(event) {

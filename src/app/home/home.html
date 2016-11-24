@@ -1,7 +1,7 @@
 <div>
-  <div class="home jumbotron centered" *ngIf="activeUser"> 
+  <div class="home jumbotron centered" *ngIf="activeUser.activeUser"> 
     <h1>Welcome {{activeUser.firstName}} {{activeUser.lastName}} ({{activeUser.userName}})		</h1>			
-    <a [routerLink]="['/rename', {username: activeUser.userName}]" id="userLink">
+    <a [routerLink]="['/rename']" id="userLink">
 			<button type="button" class="btn btn-default">Edit my profile</button>
 		</a>
 	<div class="return-userlist">
@@ -14,7 +14,7 @@
 	<form class="distinctList" id="distinctList">
 		<label for="distinctDrinks">Distinct drinks of all users:</label>
 		<select name="distinctDrinks" class="distinctDrinks" size="10" (focus)="setSelectedDistinctDrink($event.target.value)" (change)="setSelectedDistinctDrink($event.target.value)">
-    		<option *ngFor="let distinctBeverage of distinctBeverages" value="{{distinctBeverage}}" >{{distinctBeverage}}</option>		
+    		<option *ngFor="let distinctBeverage of distinctDrinkService.distinctBeverages" value="{{distinctBeverage}}" >{{distinctBeverage}}</option>		
 		</select>
 		<br/><br/>
 		<label class="newbeveragename" for="newbeveragename">New beverage</label>
@@ -34,8 +34,8 @@
 	<div class="drink-group-center" >
 	<form class="userDrinkList" (submit)="deleteSelectedDrink(activeUser.userName)">
 		<label for="userDrinks" >Your drinks listed:</label>
-		<select name="userDrinks" class="userDrinks" size="10" (focus)="setSelectedOwnDrink($event.target.value)" (change)="setSelectedOwnDrink($event.target.value)">
-    		<option *ngFor="let beverage of beverages" value="{{beverage.name}}" class="drinkagain-{{beverage.drinkAgain}}">{{beverage.name}}</option>		
+		<select name="userDrinks" class="userDrinks" size="10" (change)="setSelectedOwnDrink($event.target.value)">
+    		<option *ngFor="let beverage of userDrinkService.beverages" value="{{beverage.name}}" class="drinkagain-{{beverage.drinkAgain}}">{{beverage.name}}</option>		
 		</select>
 		<button type="submit" *ngIf="selectedOwnDrink" class="btn btn-default">Delete selected drink</button>
 	</form>
@@ -43,9 +43,9 @@
 	<div class="drink-groep-center-buttons">
 	</div>
 	<div class="drink-group-right">
-		<form role="form" (submit)="updateTagList(activeUser.userName, textbox.value)">
+		<form role="form" (submit)="updateTagList(textbox.value);">
 			<label for="tagList">Tag List selected drink:</label>
-			<textarea #textbox value="{{taglistString}}" rows="5" cols="25"></textarea>
+			<textarea #textbox value="{{taglistService.taglistString}}" rows="5" cols="25"></textarea>
 			<br/>
   			<button type="submit" class="btn btn-default">Submit taglist</button>
 		</form>
