@@ -6,9 +6,11 @@ import { User } from '../common/user';
 @Injectable()
 export class SignupService {
     
+    responseText : String;
+    
     constructor(public http : Http){}
     
-    signup(username, firstname, lastname) : String {
+    signup(username, firstname, lastname) {
         var beverages = new Array();
         var responseText = "";
         var url = "https://responsive-drinking-server.herokuapp.com/rest/users/"+username
@@ -19,13 +21,12 @@ export class SignupService {
         this.http.put(url, body, {headers: headers})
           .subscribe(
             response => {
-                responseText = "User '"+ username +"' successfully created";
+                this.responseText = "User '"+ username +"' successfully created";
             },
             error => {
               console.log(error.text());
-              responseText =  "Error: '"+ error.text();
+              this.responseText =  "Error: '"+ error.text();
             }
           );
-        return responseText;
       }
 }

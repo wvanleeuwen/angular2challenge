@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/Rx';
 //objects
 import { User } from "../common/user";
 import { Beverage } from "../common/beverage";
@@ -9,16 +10,19 @@ import { ActiveUser } from "../common/activeuser.service";
 @Injectable()
 export class UserDrink {
     
+    //public beverages : Array<Beverage>;
+
+    public _beverages : BehaviorSubject<Array<Beverage>> = new BehaviorSubject<any>(null);
+    public beveragesObservable : Observable<Array<Beverage>> = this._beverages.asObservable();
     public beverages : Array<Beverage>;
     
     constructor(public http : Http, public activeUser : ActiveUser){}
     
-    getDrinksUser(): Observable <Array<Beverage>> {
+    getDrinksUser() {
 
         console.log("getDrinksUser");
         let url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + this.activeUser.userName;
-        return Observable.timer(0, 10000)
-          .switchMap(() => this.http.get(url))
+        this.http.get(url)
           .map( (responseData) => {
                     let response = responseData.json();
                     let user = new User(response.firstName, response.lastName, response.userName);
@@ -29,11 +33,13 @@ export class UserDrink {
                       var drink = new Beverage(beverage.drinkAgain, beverage.name);
                       drink.tagList = beverage.tagList;
                       result.push(drink);
-              })
-              this.beverages = result;
+                    })
+                this.beverages = result;
                 console.log(result);
                 return result;
-          }).distinctUntilChanged();   
+          }).subscribe((change) => {
+              this._beverages.next(change);
+          });   
       }
     
     addDistinctDrinkToOwnList(username, selectedDistinctDrink, drinkAgain, newBeverageName) {
@@ -57,7 +63,7 @@ export class UserDrink {
               }
             },
             error => {
-              alert(error.text());
+              console.log(error.text());
             }
             );
         }
@@ -78,7 +84,7 @@ export class UserDrink {
             }
           },
           error => {
-            alert(error.text());
+            console.log(error.text());
           }
           );
       }

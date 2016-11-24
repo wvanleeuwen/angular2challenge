@@ -50,19 +50,20 @@ export class TagList {
     getTagListDrink(beverages, beverage ) {
 
         console.log( "getTagListDrink: " + beverage );
-        for ( var i = 0; i < beverages.length; i++ ) {
-            console.log( beverages[i].name )
-            if ( beverage === beverages[i].name ) {
-                this.tagList = beverages[i].tagList;
+        beverages.forEach((beverageItem) => {
+            console.log( beverageItem.name )
+            if ( beverage === beverageItem.name ) {
+                this.tagList = beverageItem.tagList;
                 this.setTagListString();
                 return;
             }
-        }
+        });
     }
     
     setTagListObject(taglistString){
-        if(taglistString)
-        var str_array = taglistString.split(',');
+        if(taglistString){
+            var str_array = taglistString.split(',');
+        }
         this.tagList = str_array;
       }
       
@@ -70,13 +71,12 @@ export class TagList {
         console.log("setTagListString");
         this.taglistString = "";
         var tagListString = "";
-        for(var i = 0; i < this.tagList.length; i++){
-          console.log(this.tagList[i]);
-          tagListString += this.tagList[i];
-          if((i+1) < this.tagList.length){
-            tagListString+=",";
-          }
-        }
+        this.tagList.forEach((tagListItem) => {
+          console.log(tagListItem);
+          tagListString += tagListItem;
+          tagListString+=",";
+        });
+        tagListString = tagListString.substr(0, tagListString.length-1);
         console.log("tagListString: "+tagListString);
         this.taglistString = tagListString;
       }

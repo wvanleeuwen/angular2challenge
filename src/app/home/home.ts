@@ -23,13 +23,13 @@ const template = require( './home.html' );
 export class Home {
 
     // user
-    private userName: String;
+    public userName: String;
     // attrs
-    private newBeverageName: String;
+    public newBeverageName: String;
     // selections
-    private selectedDistinctDrink: String;
-    private selectedOwnDrink: String;
-    private selectedOwnBeverage: Array<Beverage>;
+    public selectedDistinctDrink: String;
+    public selectedOwnDrink: String;
+    public selectedOwnBeverage: Array<Beverage>;
     // subscriptions
     private userDrinkSubscription: any;
     private distinctDrinkSubscription: any;
@@ -45,15 +45,20 @@ export class Home {
 
         // attrs
         this.selectedDistinctDrink = null;
-        this.selectedDistinctDrink = null;
         this.selectedOwnDrink = null;
         this.selectedOwnBeverage = null;
         this.newBeverageName = null;
     }
 
     ngOnInit() {
-        this.userDrinkSubscription = this.userDrinkService.getDrinksUser().subscribe(
-            beverages => this.userDrinkService.beverages = beverages );
+        // observable with behaviour subject
+        this.userDrinkSubscription = this.userDrinkService.beveragesObservable.subscribe( drinksUser =>{
+             if(drinksUser) {
+                       this.userDrinkService.beverages = drinksUser;
+             }});
+        this.userDrinkService.getDrinksUser();
+        
+        // observable with timer
         this.distinctDrinkSubscription = this.distinctDrinkService.getDistinctDrinks().subscribe(
             distinctBeverages => this.distinctDrinkService.distinctBeverages = distinctBeverages );
     }
@@ -96,18 +101,18 @@ export class Home {
     
     addDistinctDrinkToOwnList(username, drinkAgain, newBeverageName){
         this.userDrinkService.addDistinctDrinkToOwnList(username, this.selectedDistinctDrink, drinkAgain, newBeverageName);
-        this.userDrinkService.getDrinksUser(); // how to force new get data with the observable
         this.resetTagList();
+        this.userDrinkService.getDrinksUser();
     }
     
     deleteSelectedDrink(username) {
         this.userDrinkService.deleteSelectedDrink(username, this.selectedOwnDrink);
-        this.userDrinkService.getDrinksUser(); // how to force new get data with the observable
+        this.userDrinkService.getDrinksUser();
     }
     
     updateTagList(taglistValue){
         this.taglistService.updateTagList(this.selectedOwnDrink, this.userDrinkService.beverages, taglistValue);
-        this.userDrinkService.getDrinksUser(); // how to force new get data with the observable
+        this.userDrinkService.getDrinksUser();
         this.resetTagList();
     }
 

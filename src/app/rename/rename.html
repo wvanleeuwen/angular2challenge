@@ -8,10 +8,10 @@
 	</form>
 	<br/>
   
-  <div class="singup jumbotron centered" *ngIf="responseText"><p>{{responseText}}
+  <div class="singup jumbotron centered"><p>{{renameService.responseText}}
   </p></div>
 
-  <form *ngIf="currentUser" role="form" (submit)="updateCurrentUser($event, username.value, firstname.value, lastname.value);">
+  <form *ngIf="currentUser" role="form" (submit)="updateCurrentUser(username.value, firstname.value, lastname.value);">
   <div class="form-group">
     <label for="username">User name</label>
     <input type="text" #username class="form-control" id="username" value="{{currentUser.userName}}">

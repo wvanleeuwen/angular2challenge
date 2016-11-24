@@ -8,10 +8,10 @@
 	</form>
 	<br/>
   
-  <div class="singup jumbotron centered" *ngIf="responseText"><p>{{responseText}}
+  <div class="singup jumbotron centered" *ngIf="signupService.responseText"><p>{{signupService.responseText}}
   </p></div>
 
-  <form id="signUpForm" role="form" (submit)="signup($event, username.value, firstname.value, lastname.value);">
+  <form id="signUpForm" role="form" (submit)="signup(username.value, firstname.value, lastname.value);">
   <div class="form-group">
     <label for="username">User name</label>
     <input type="text" #username class="form-control" id="username" placeholder="username">

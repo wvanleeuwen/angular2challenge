@@ -14,11 +14,11 @@ const template = require('./signup.html');
 @Component({
   selector: 'signup',
   template: template,
-  styles: [ styles ]
+  styles: [ styles ],
+  providers: [SignupService]
 })
 export class Signup {
-  
-  responseText : String;
+ 
   username: String; 
   firstname: String;
   lastname: String;
@@ -30,7 +30,7 @@ export class Signup {
   }
 
   signup(username, firstname, lastname) {
-      this.responseText = this.signupService.signup(username, firstname, lastname);
+      this.signupService.signup(username, firstname, lastname);
   }
 
   login(event) {
