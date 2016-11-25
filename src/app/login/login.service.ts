@@ -19,7 +19,7 @@ export class LoginService {
     }
     
     userList() {
-        console.log("userList")
+        console.log("userList");
         let body = JSON.stringify({});
         var url = "https://responsive-drinking-server.herokuapp.com/rest/users/";
             return Observable.timer(0, 10000)
@@ -39,8 +39,8 @@ export class LoginService {
                                       if (drink.drinkAgain) {
                                         this.beverages.push(drink);
                                       }
-                            })
-                    })
+                            });
+                    });
                     this.users = result;
                     //console.log(result);
                     this.createFiveMostFavouriteDrinksList();

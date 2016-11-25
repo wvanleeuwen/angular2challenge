@@ -1,8 +1,9 @@
 import { Component, Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/Rx';
 //objects
+import { contentHeaders } from '../common/headers';
 import { User } from "../common/user";
 import { Beverage } from "../common/beverage";
 import { ActiveUser } from "../common/activeuser.service";
@@ -33,7 +34,7 @@ export class UserDrink {
                       var drink = new Beverage(beverage.drinkAgain, beverage.name);
                       drink.tagList = beverage.tagList;
                       result.push(drink);
-                    })
+                    });
                 this.beverages = result;
                 console.log(result);
                 return result;
@@ -54,8 +55,7 @@ export class UserDrink {
           }
 
           var url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + username + "/beverages";
-          var headers = new Headers();
-          headers.append('Content-Type', 'application/json');
+          let headers = contentHeaders;
           this.http.post(url, JSON.stringify(selectedBeverage), { headers })
             .subscribe(response => {
 
@@ -64,8 +64,7 @@ export class UserDrink {
             },
             error => {
               console.log(error.text());
-            }
-            );
+            });
         }
         else {
           alert("Please select a distinct drink first!");
@@ -74,8 +73,7 @@ export class UserDrink {
         
       deleteSelectedDrink(username, selectedOwnDrink) {
         var url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + username + "/beverages/" + selectedOwnDrink;
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        let headers = contentHeaders;
         this.http.delete(url, { headers })
           .subscribe(response => {
 
@@ -85,7 +83,6 @@ export class UserDrink {
           },
           error => {
             console.log(error.text());
-          }
-          );
+          });
       }
 }

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-// http / headers
-import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 // services
 import { ActiveUser } from '../common/activeuser.service';
 import { LoginService } from './login.service';

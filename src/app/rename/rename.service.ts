@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 // objects
+import { contentHeaders } from '../common/headers';
 import { User } from "../common/user";
 // services
 import { ActiveUser } from "../common/activeuser.service";
@@ -30,10 +31,10 @@ export class RenameService {
 
     updateCurrentUser( username, firstname, lastname ) {
         var beverages = new Array();
-        var url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + this.activeUser.userName
+        var url = "https://responsive-drinking-server.herokuapp.com/rest/users/" + this.activeUser.userName;
         var user = new User( firstname, lastname, username );
         let body = JSON.stringify( user );
-        let headers = new Headers( { 'Content-Type': 'application/json' });
+        let headers = contentHeaders;
         console.log( body );
         this.http.put( url, body, { headers: headers })
             .subscribe(

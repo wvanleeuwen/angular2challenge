@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActiveUser } from "../common/activeuser.service";
-import { Login } from './'
-import { LoginService } from './login.service'
-import { MockLoginService } from './mocklogin.service'
+import { Login } from './';
+import { LoginService } from './login.service';
+import { MockLoginService } from './mocklogin.service';
 
 describe('Login unit test', () => {
     var login: Login,

@@ -23,7 +23,7 @@ export class Drink {
                     let result : Array<String> = [];
                     beverages.forEach((beverage) => {
                     result.push(beverage);
-              })
+              });
               this.distinctBeverages = result;
                 console.log(result);
                 return result;

@@ -1,8 +1,9 @@
 import { Component, Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 //objects
-import { Beverage } from "../common/beverage";
-import { ActiveUser } from "../common/activeuser.service";
+import { contentHeaders } from '../common/headers';
+import { Beverage } from '../common/beverage';
+import { ActiveUser } from '../common/activeuser.service';
 
 @Injectable()
 export class TagList {
@@ -10,8 +11,7 @@ export class TagList {
     public tagList : Array<String>;
     public taglistString : String;
     
-    constructor(public http : Http, public activeUser : ActiveUser){
-        
+    constructor(public http : Http, public activeUser : ActiveUser){        
         this.taglistString = "";
     }
     
@@ -20,7 +20,7 @@ export class TagList {
         var tagListObj = this.setTagListObject(taglistValue);
         console.log("updateTageList");        
         for(var i = 0; i < beverages.length; i++){
-            console.log(beverages[i].name)
+            console.log(beverages[i].name);
             if(selectedOwnDrink === beverages[i].name){
               var drinkAgain = beverages[i].drinkAgain;
               break;
@@ -29,8 +29,7 @@ export class TagList {
         var updatedBeverage = new Beverage(drinkAgain, selectedOwnDrink);
         updatedBeverage.tagList = this.tagList;
         var url = "https://responsive-drinking-server.herokuapp.com/rest/users/"+this.activeUser.userName+"/beverages/"+selectedOwnDrink;
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        let headers = contentHeaders;
         console.log(JSON.stringify(updatedBeverage));
         this.http.put(url, JSON.stringify(updatedBeverage), { headers })
           .subscribe(response => {     
@@ -49,7 +48,7 @@ export class TagList {
 
         console.log( "getTagListDrink: " + beverage );
         beverages.forEach((beverageItem) => {
-            console.log( beverageItem.name )
+            console.log( beverageItem.name );
             if ( beverage === beverageItem.name ) {
                 this.tagList = beverageItem.tagList;
                 this.setTagListString();

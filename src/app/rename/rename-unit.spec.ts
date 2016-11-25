@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActiveUser } from "../common/activeuser.service";
 import { User } from "../common/user";
-import { Rename } from './'
+import { Rename } from './';
 import { MockRenameService } from './mockrename.service';
 
 describe('Rename unit test', () => {
@@ -11,7 +11,7 @@ describe('Rename unit test', () => {
 
     beforeEach(() => {
         activeUserService = new ActiveUser();
-        activeUserService.setActiveUserObj(new User("Test","User","userTest"))
+        activeUserService.setActiveUserObj(new User("Test","User","userTest"));
         renameServiceMock = new MockRenameService(activeUserService);
         rename = new Rename(null, activeUserService, renameServiceMock);
     });
