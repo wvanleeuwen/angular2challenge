@@ -1,3 +1,12 @@
+
+# Set up Environment
+
+1. Install node v4.x.x & npm 3.x.x. 
+   http://yoember.com/nodejs/the-best-way-to-install-node-js/
+2. npm install -g angular-cli
+
+
+
 # Challengeproject
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.

@@ -33,7 +33,7 @@ export class Home {
     private distinctDrinkSubscription: any;
 
 
-    constructor( public router: Router, public route: ActivatedRoute, public http: Http, public activeUser: ActiveUser,
+    constructor( public router: Router, public activeUser: ActiveUser,
         public distinctDrinkService: Drink, public userDrinkService: UserDrink, public taglistService: TagList ) {
 
         this.userName = this.activeUser.userName;

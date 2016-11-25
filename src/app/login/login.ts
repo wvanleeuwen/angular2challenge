@@ -27,7 +27,7 @@ export class Login {
   beveragesSorted: Array<BeverageCounter>;
   userListSubscription : any;
 
-  constructor(public router: Router, public route: ActivatedRoute, public http: Http, public activeUser : ActiveUser,
+  constructor(public router: Router, public activeUser : ActiveUser,
           public loginService : LoginService) { }
 
   ngOnInit() {

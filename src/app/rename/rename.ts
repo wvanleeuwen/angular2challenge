@@ -21,8 +21,7 @@ export class Rename {
     private userName: String; 
     private currentUser : User;
   
-  constructor(public router: Router, public route: ActivatedRoute, public http: Http, 
-          public activeUser : ActiveUser, public renameService:RenameService) {
+  constructor(public router: Router, public activeUser : ActiveUser, public renameService:RenameService) {
      this.userName = this.activeUser.userName;
      if ( !this.userName ) {
           this.logout();

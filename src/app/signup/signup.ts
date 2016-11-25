@@ -19,7 +19,7 @@ export class Signup {
   firstname: String;
   lastname: String;
   
-  constructor(public router: Router, public http: Http, public signupService : SignupService) {
+  constructor(public router: Router, public signupService : SignupService) {
     this.username="";
     this.firstname="";
     this.lastname="";
