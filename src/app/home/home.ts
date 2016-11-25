@@ -98,7 +98,8 @@ export class Home {
     }
     
     addDistinctDrinkToOwnList(username, drinkAgain, newBeverageName){
-        this.userDrinkService.addDistinctDrinkToOwnList(username, this.selectedDistinctDrink, drinkAgain, newBeverageName);
+        this.userDrinkService.addDistinctDrinkToOwnList(
+                username, this.selectedDistinctDrink, drinkAgain, newBeverageName);
         this.resetTagList();
         this.userDrinkService.getDrinksUser();
     }
@@ -109,7 +110,8 @@ export class Home {
     }
     
     updateTagList(taglistValue){
-        this.taglistService.updateTagList(this.selectedOwnDrink, this.userDrinkService.beverages, taglistValue);
+        this.taglistService.updateTagList(this.selectedOwnDrink, 
+                this.userDrinkService.beverages, taglistValue);
         this.userDrinkService.getDrinksUser();
         this.resetTagList();
     }

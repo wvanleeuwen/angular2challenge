@@ -68,10 +68,12 @@ describe('Home unit test', () => {
         home.newDrinkInsert();
         expect(home.selectedDistinctDrink).toBeNull("selectedDistinctDrink not correctly reset by inserting new drink");
         home.setSelectedOwnDrink("7up");
-        expect(home.taglistService.taglistString).toBe("taglistItem1_1,taglistItem1_2", "not correct taglist as expected by selectedOwnDrink property");
+        expect(home.taglistService.taglistString).toBe("taglistItem1_1,taglistItem1_2", 
+                "not correct taglist as expected by selectedOwnDrink property");
         
         home.taglistService.getTagListDrink(result, "Coca Cola");
-        expect(home.taglistService.taglistString).toBe("taglistItem2_1,taglistItem2_2", "not correct taglist as expected by selectedOwnDrink property");
+        expect(home.taglistService.taglistString).toBe("taglistItem2_1,taglistItem2_2", 
+                "not correct taglist as expected by selectedOwnDrink property");
         
         home.resetTagList();
         expect(home.taglistService.taglistString).toBe("", "not empty taglist aftyer resetting tag list");
