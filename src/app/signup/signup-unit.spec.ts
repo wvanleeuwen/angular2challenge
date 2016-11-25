@@ -8,7 +8,7 @@ describe('Signup unit test', () => {
 
     beforeEach(() => {
         signupServiceMock = new MockSignupService();
-        signup = new Signup(null, null, signupServiceMock);
+        signup = new Signup(null, signupServiceMock);
     });
     
     it('has empty attributes by default - unit', () => {

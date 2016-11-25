@@ -21,7 +21,7 @@ describe('Home unit test', () => {
         userdrinkServiceMock = new MockUserDrinkService(activeUserService);
         taglistServiceMock = new MockTagListService(activeUserService);
         
-        home = new Home(null, null, null, activeUserService, 
+        home = new Home(null, activeUserService, 
                 drinkServiceMock, userdrinkServiceMock, taglistServiceMock);
     });
     

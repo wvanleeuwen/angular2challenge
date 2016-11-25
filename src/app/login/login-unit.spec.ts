@@ -12,7 +12,7 @@ describe('Login unit test', () => {
     beforeEach(() => {
         activeUserService = new ActiveUser();
         loginServiceMock = new MockLoginService();
-        login = new Login(null, null, null, activeUserService, loginServiceMock);
+        login = new Login(null, activeUserService, loginServiceMock);
     });
     
     it('shows list of login users by default - unit', () => {

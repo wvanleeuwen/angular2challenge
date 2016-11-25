@@ -13,7 +13,7 @@ describe('Rename unit test', () => {
         activeUserService = new ActiveUser();
         activeUserService.setActiveUserObj(new User("Test","User","userTest"))
         renameServiceMock = new MockRenameService(activeUserService);
-        rename = new Rename(null, null, null, activeUserService, renameServiceMock);
+        rename = new Rename(null, activeUserService, renameServiceMock);
     });
     
     it('shows username,firstname,lastnam of active user by default - unit', () => {
